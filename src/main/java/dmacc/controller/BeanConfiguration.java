@@ -25,7 +25,7 @@ public class BeanConfiguration {
 
 	@Bean
 	public Address address() {
-		Address bean = new Address("123 Main Street", "Des Moines", "IA");
+		Address bean = new Address("123 Main Street", "Des Moines", "IA", "12345-1234");
 		return bean;
 	}
 }

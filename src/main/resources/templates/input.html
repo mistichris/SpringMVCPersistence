@@ -3,21 +3,121 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Insert New Contact</title>
+<script>
+	function checkForm(form) {
+
+		//Want to make sure values have been entered for at least the name and phone fields
+		if (form.name.value == "") {
+			alert("Error: Name field is empty!");
+			form.name.focus();
+			return false;
+		}
+
+		if (form.phone.value == "") {
+			alert("Error: Phone field is empty!");
+			form.phone.focus();
+			return false;
+		}
+
+		//Only want to accept lower/uppercase letters, dashes and spaces for the name
+		var re = /^[A-Za-z .-]+$/;
+
+		// validation fails if the input doesn't match our regular expression
+		if (!re.test(form.name.value)) {
+			alert("Error: Name can only contain alphanumeric characters!");
+			form.name.focus();
+			return false;
+		}
+
+		//Relationship can only be alphanumeric characters and spaces
+		var re = /^[A-Za-z .-]*$/;
+
+		// validation fails if the input doesn't match our regular expression
+		if (!re.test(form.relationship.value)) {
+			alert("Error: Relationship can only contain alphanumeric characters!");
+			form.relationship.focus();
+			return false;
+		}
+
+		//phone number can only contain numbers, dashes, and parenthesis
+		var re = /^[0-9()-]*$/;
+
+		if (!re.test(form.phone.value)) {
+			alert("Error: Please enter phone number in the following format: 555-123-4567.");
+			form.phone.focus();
+			return false;
+		}
+
+		//Adress can only contain numbers, upper/lower case letters, periods, dashes, and spaces
+		var re = /^[a-zA-Z0-9 .#()-]*$/;
+
+		if (!re.test(form["address.street"].value)) {
+			alert("Error: Please enter a valid street address.");
+			form["address.street"].focus();
+			return false;
+		}
+
+		//City can only contain upper/lower case letters, periods, dashes, and spaces
+		var re = /^[a-zA-Z .#()-]*$/;
+
+		if (!re.test(form["address.city"].value)) {
+			alert("Error: Please enter a valid city.");
+			form["address.city"].focus();
+			return false;
+		}
+
+		//State can only be entered in a two letter format
+		var re = /^[A-Z]*$/;
+
+		if (!re.test(form["address.state"].value)) {
+			alert("Error: Please enter a valid state in the (ex. WA).");
+			form["address.state"].focus();
+			return false;
+		}
+
+		//Zip can only contain numbers and a dash
+		var re = /^[0-9 -]*$/;
+
+		if (!re.test(form["address.zip"].value)) {
+			alert("Error: Please enter a valid zip code.");
+			form["address.zip"].focus();
+			return false;
+		}
+
+		// validation was successful
+		return true;
+	}
+</script>
 </head>
 <body>
-<form th:object="${newContact}" th:action="@{/inputContact}" method='POST'>
-<input name="id" th:field="*{id}" style="display: none;">
-Name: <input name="name" size="20" th:field="*{name}"> <br />
-Relationship: <input name="relationship" size="10" th:field="*{relationship}"> <br />
-Phone Number: <input name="phone" size="20" th:field="*{phone}"> <br />
-Street: <input name="address.street" size="20" th:field="*{address.street}"> <br />
-City: <input name="address.city" size="20" th:field="*{address.city}"> <br />
-State: <input name="address.state" size="20" th:field="*{address.state}"> <br />
+	<h1>Enter New Contact</h1>
+	<form th:object="${newContact}" th:action="@{/inputContact}"
+		method='POST' onsubmit="return checkForm(this);">
+		<input name="id" th:field="*{id}" style="display: none;">
+		Name: <input name="name" size="20" th:field="*{name}"> <br />
+		Relationship: <input name="relationship" size="10"
+			th:field="*{relationship}"> <br /> Phone Number: <input
+			name="phone" size="20" th:field="*{phone}"> <br /> Street: <input
+			name="street" size="20" th:field="*{address.street}"> <br />
+		City: <input name="city" size="20" th:field="*{address.city}">
+		<br /> State: <input name="state" size="2"
+			th:field="*{address.state}"> <br /> Zip Code: <input
+			name="zip" size="10" th:field="*{address.zip}"> <br /> <input
+			name="submit" type="submit" value="submit">
 
-<input name="submit" type="submit" value="submit"> 
+	</form>
 
-</form>
+	<div id="menu">
+		<h2>Main Menu</h2>
+		<ul id="mainMenu" Style="display: none">
+			<li><a href="viewAll">View all Contacts</a></li>
+			<li><a href="/index.html">Return to Home</a></li>
+		</ul>
+	</div>
 
-<a href="/viewAll">View all Contacts</a>
+	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+	<script src="../script.js">
+		
+	</script>
 </body>
 </html>

@@ -4,7 +4,6 @@ package dmacc;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
@@ -45,7 +44,7 @@ public class SpringContactsMVCPersistence{
 		
 		//Create a bean to use - not managed by Spring
 		Contact d = new Contact("Sandra Boyton", "555-555-5556", "friend");
-		Address a = new Address("123 Main Street", "Des Moines", "IA");
+		Address a = new Address("123 Main Street", "Des Moines", "IA", "12345-1234");
 		d.setAddress(a);
 		repo.save(d);
 		//enhanced for loop to list all entries in database
